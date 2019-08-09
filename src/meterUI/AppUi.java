@@ -168,7 +168,7 @@ public class AppUi extends javax.swing.JFrame {
         //if(jRadioButton1.)
         String code = jTextArea1.getText();
         System.out.println(countLines(code));
-        chechCsKeyWordsJava(code);
+        checkCsKeyWordsJava(code);
         //-----------------------------------------run
         //-----------------------------------------
         //-----------------------------------------
@@ -216,7 +216,7 @@ JFileChooser chooser = new JFileChooser();
     return lines;
     }
     
-    public void chechCsKeyWordsJava(String code){        
+    public void checkCsKeyWordsJava(String code){        
         //ArrayList<String> code_array = new ArrayList<>();
         Scanner scanner = new Scanner(code);
                 
@@ -513,6 +513,51 @@ JFileChooser chooser = new JFileChooser();
 
        
     }
+    
+    public void checkCtcKeyWordJava(String code){}
+    
+    public void checkCncKeyWordJava(String code){}
+    
+    public void calculateCi(int [] CCi,int arraySize){
+                
+        int Ci[] = new int[arraySize];
+    
+        for(int i = 0; i<arraySize; i++){
+                    Ci[i] = 0;
+        }
+    } //if key word class add 1 class = 1 total should be 1+1 = 2
+                
+    public void calculateTw(int [] Ctc, int [] Cnc, int [] Ci,int arraySize){
+        
+        int TW[] = new int[arraySize];
+
+        for(int i = 0; i<arraySize; i++){
+                    TW[i] = 0;
+        }
+        
+        for(int i =0; i<arraySize; i++){
+            TW[i] = Ctc[i] + Cnc[i] + Ci[i];
+        }
+    }
+        
+    public void calculateCps(int [] Cs, int [] TW,int arraySize){
+    
+        int Cps[] = new int[arraySize];
+
+        for(int i = 0; i<arraySize; i++){
+                    Cps[i] = 0;
+        }
+        
+        for(int i =0; i<arraySize; i++){
+            Cps[i] = Cs[i] * TW[i];
+        }
+    }
+
+    public void calculateCr(String code){}
+        
+    public void checkCpKeyWordJava(String code){}
+
+
 
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
