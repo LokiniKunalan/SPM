@@ -8,6 +8,8 @@ package meterUI;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -169,6 +171,7 @@ public class AppUi extends javax.swing.JFrame {
         String code = jTextArea1.getText();
         System.out.println(countLines(code));
         checkCsKeyWordsJava(code);
+        checkCtcKeyWordJava(code);
         //-----------------------------------------run
         //-----------------------------------------
         //-----------------------------------------
@@ -514,7 +517,43 @@ JFileChooser chooser = new JFileChooser();
        
     }
     
-    public void checkCtcKeyWordJava(String code){}
+    public void checkCtcKeyWordJava(String code){
+    
+         final List<String> bitwise = Arrays.asList(" && ", " || ", " & ", " | ");
+      final List<String> ccs = Arrays.asList("if(", "catch(", "if (", "catch (");
+      final List<String> ics = Arrays.asList("for(", "while(", "for (", "while (");  
+    //  static statement switchLine = null;
+      int switchCtc = 0;
+      int ctc = 0; 
+      
+    Scanner fileInput = new Scanner(code);  
+    while ( fileInput.hasNextLine())  {
+       String line = fileInput.nextLine();
+       
+       line = line.trim();
+       for (String keyword : ccs) {
+            if (!line.isEmpty() && line.indexOf(keyword) != -1) {
+                ctc += StringUtils.countMatches(line, keyword);
+                for (String bw : bitwise) {
+                    ctc += StringUtils.countMatches(line, bw);
+                }
+            }
+        }
+        for (String keyword : ics) {
+            if (!line.isEmpty() && line.indexOf(keyword) != -1) {
+                ctc += StringUtils.countMatches(line, keyword) * 2;
+                for (String bw : bitwise) {
+                    ctc += StringUtils.countMatches(line, bw) * 2;
+                }
+            }
+        }
+        switchCtc += StringUtils.countMatches(line, "case");
+    }
+    fileInput.close();
+    
+    
+    
+    }
     
     public void checkCncKeyWordJava(String code){}
     
